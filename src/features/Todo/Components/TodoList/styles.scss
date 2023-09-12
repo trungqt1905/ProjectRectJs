@@ -1,0 +1,13 @@
+.todoList {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.todoList .completed {
+    opacity: 0.2;
+    text-decoration: line-through;
+}

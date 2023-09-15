@@ -2,6 +2,7 @@ import { Controller } from 'react-hook-form';
 import { FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import React from 'react';
+import { FormHelperText } from '@mui/material';
 
 function PasswordField(props) {
     const { form, name, label, disabled } = props;
@@ -14,11 +15,11 @@ function PasswordField(props) {
     return (
         <div>
             <Controller
-                name={name}
-                control={form.control}
+                name={name} // The name of the input field
+                control={form.control} // The form control object from React Hook Form
                 render={({ field, fieldState }) => (
                     <FormControl fullWidth variant="outlined" margin='normal'>
-                        <InputLabel htmlFor={name}>{label}</InputLabel>
+                        <InputLabel>{label}</InputLabel>
                         <OutlinedInput
                             {...field}
                             type={showPassword ? 'text' : 'password'}
@@ -34,10 +35,10 @@ function PasswordField(props) {
                                     </IconButton>
                                 </InputAdornment>
                             }
-                            label="Password"
                             error={Boolean(fieldState.error)}
-                            helperText={fieldState.error ? fieldState.error.message : null}
+                            label={label}
                         />
+                        <FormHelperText style={{ color: 'red' }}>{fieldState.error ? fieldState.error.message : null}</FormHelperText>
                     </FormControl>
                 )}
             />

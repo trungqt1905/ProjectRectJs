@@ -1,12 +1,11 @@
-import './App.css';
-import { BrowserRouter as Router, Route, Routes, Navigate, NavLink } from 'react-router-dom';
-import AlbumFeature from './features/Abums';
-import TodoFeatures from './features/Todo';
-import NotFound from './components/NotFound';
-import { useEffect } from 'react';
-import productsApi from './api/productApi';
-import CountFeature from './features/Counter';
 import Headers from 'components/Header';
+import { useEffect } from 'react';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import './App.css';
+import productsApi from './api/productApi';
+import NotFound from './components/NotFound';
+import AlbumFeature from './features/Abums';
+import CountFeature from './features/Counter';
 function App() {
   useEffect(() => {
     const fetchProducts = async () => {

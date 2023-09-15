@@ -22,8 +22,8 @@ function InputField(props) {
                     {...field}
                     disabled={disabled}
                     label={label}
-                    error={fieldState.isTouched && fieldState.invalid}
-                    helperText={fieldState.isTouched && fieldState.error?.message}
+                    error={Boolean(fieldState.error)}
+                    helperText={fieldState.error ? fieldState.error.message : null}
                     variant='outlined'
                     margin='normal'
                     fullWidth

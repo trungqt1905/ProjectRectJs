@@ -6,6 +6,7 @@ import NotFound from './components/NotFound';
 import { useEffect } from 'react';
 import productsApi from './api/productApi';
 import CountFeature from './features/Counter';
+import Headers from 'components/Header';
 function App() {
   useEffect(() => {
     const fetchProducts = async () => {
@@ -20,19 +21,15 @@ function App() {
 
   return (
     <div className="App">
-      Header
+
       <Router>
-
-        <p><NavLink to="/todos">todos</NavLink></p>
-        <p><NavLink to="/albums">albums</NavLink></p>
-
+        <Headers />
         <Routes>
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/todos/*" element={<CountFeature />} />
           <Route path="/albums/*" element={<AlbumFeature />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
-
       </Router >
       Footer
     </div >

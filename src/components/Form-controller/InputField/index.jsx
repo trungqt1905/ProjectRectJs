@@ -22,9 +22,11 @@ function InputField(props) {
                     {...field}
                     disabled={disabled}
                     label={label}
-
                     error={fieldState.isTouched && fieldState.invalid}
                     helperText={fieldState.isTouched && fieldState.error?.message}
+                    variant='outlined'
+                    margin='normal'
+                    fullWidth
                 />
             )
             }

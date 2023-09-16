@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     const fetchProducts = async () => {
       const params = {
-        limit: 10
+        _limit: 10
       }
       const productList = await productsApi.getAll(params);
       console.log(productList);

@@ -21,7 +21,5 @@ const productsApi = {
         const url = `/products/${id}`;
         return axiosClient.delete(url);
     }
-
-
 };
 export default productsApi;

@@ -1,12 +1,25 @@
-import RegisterForm from '../RegisterForm';
+import { unwrapResult } from "@reduxjs/toolkit";
+import { register } from "features/Counter/userSlide";
+import { useDispatch } from "react-redux";
+import RegisterForm from "../RegisterForm";
 
-Register.propTypes = {
-
-};
+Register.propTypes = {};
 
 function Register(props) {
-    const handleSubmit = (values) => {
-        console.log('Form submit', values)
+    const dispatch = useDispatch();
+
+    const handleSubmit = async (values) => {
+        try {
+            values.username = values.email;
+
+            const action = register(values);
+            const resultAction = await dispatch(action);
+            const user = unwrapResult(resultAction);
+
+            console.log('New user', user)
+        } catch (error) {
+            console.log('Failed to register', error)
+        }
     }
     return (
         <div>

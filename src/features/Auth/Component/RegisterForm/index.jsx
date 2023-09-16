@@ -3,15 +3,12 @@ import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import InputField from '../../../../components/Form-controller/InputField';
-import { Avatar, Button, Typography } from '@mui/material';
+
+import { Avatar, Button, LinearProgress, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { makeStyles } from '@mui/styles';
 import PasswordField from 'components/Form-controller/PasswordField';
-
-
-
-
+import InputField from 'components/Form-controller/InputField';
 
 RegisterForm.propTypes = {
     onSubmit: PropTypes.func,
@@ -19,7 +16,7 @@ RegisterForm.propTypes = {
 
 const useStyles = makeStyles({
     root: {
-
+        position: 'relative',
     },
     avatar: {
         margin: '0 auto',
@@ -30,6 +27,12 @@ const useStyles = makeStyles({
     },
     buttons: {
         margin: '4 auto',
+    },
+    progress: {
+        position: 'absolute',
+        top: '10',
+        left: '0',
+        right: '0'
     }
 });
 
@@ -64,16 +67,21 @@ function RegisterForm(props) {
         resolver: yupResolver(schema)
     });
 
-    const handleSubmit = (values) => {
+    const handleSubmit = async (values) => {
         const { onSubmit } = props;
         if (onSubmit) {
-            onSubmit(values);
+            await onSubmit(values);
         }
         form.reset();
     };
 
+    const { isSubmitting } = form.formState;
+
     return (
         <div className={classes.root}>
+
+            {isSubmitting && <LinearProgress className={classes.progress} />}
+
             <Avatar className={classes.avatar}>
                 <LockOutlinedIcon />
             </Avatar>
@@ -85,7 +93,9 @@ function RegisterForm(props) {
                 <InputField name='email' label='Email' form={form} />
                 <PasswordField name='password' label='Password' form={form} />
                 <PasswordField name='retypePassword' label='Retype password' form={form} />
-                <Button type='submit' className={classes.buttons} variant='contained' color='primary' fullWidth>Create an account</Button>
+                <Button disabled={isSubmitting} type='submit' className={classes.buttons} variant='contained' color='primary' fullWidth>
+                    Create an account
+                </Button>
             </form >
         </div>
     );

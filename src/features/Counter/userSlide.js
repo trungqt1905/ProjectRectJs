@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import UserApi from "api/userApi";
+import StorageKey from "constants/storage-keys";
 
 
 
@@ -9,8 +10,21 @@ export const register = createAsyncThunk(
         //call api to register 
         const data = await UserApi.register(payload);
         //save date to loval stored
-        localStorage.setItem('access_token', data.jwt)
-        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem(StorageKey.TOKEN, data.jwt)
+        localStorage.setItem(StorageKey.USER, JSON.stringify(data.user));
+        // return user data
+        return data.user;
+    }
+)
+
+export const login = createAsyncThunk(
+    'users/login',
+    async (payload) => {
+        //call api to register 
+        const data = await UserApi.login(payload);
+        //save date to loval stored
+        localStorage.setItem(StorageKey.TOKEN, data.jwt)
+        localStorage.setItem(StorageKey.USER, JSON.stringify(data.user));
         // return user data
         return data.user;
     }
@@ -19,14 +33,16 @@ export const register = createAsyncThunk(
 const userSlide = createSlice({
     name: 'user',
     initialState: {
-        current: {},
-        loading: {},
+        current: JSON.parse(localStorage.getItem(StorageKey.USER)) || {},
     },
     reducers: {
-
+        
     },
     extraReducers: {
         [register.fulfilled]: (state, action) => {
+            state.current = action.payload
+        },
+        [login.fulfilled]: (state, action) => {
             state.current = action.payload
         },
     }

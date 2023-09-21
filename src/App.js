@@ -6,6 +6,7 @@ import productsApi from './api/productApi';
 import NotFound from './components/NotFound';
 import AlbumFeature from './features/Abums';
 import CountFeature from './features/Counter';
+import ProductFeature from 'features/Product';
 function App() {
   useEffect(() => {
     const fetchProducts = async () => {
@@ -24,13 +25,15 @@ function App() {
       <Router>
         <Headers />
         <Routes>
-          <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/todos/*" element={<CountFeature />} />
+
           <Route path="/albums/*" element={<AlbumFeature />} />
+
+          <Route path='/products/*' element={<ProductFeature />} />
+          <Route path="/" element={<Navigate to="/products/listpage" />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Router >
-      Footer
     </div >
   );
 }

@@ -1,4 +1,6 @@
 import { Close } from '@mui/icons-material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import StoreIcon from '@mui/icons-material/Store';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Dialog, DialogContent, Menu, MenuItem } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
@@ -10,10 +12,10 @@ import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 import Login from 'features/Auth/Component/Login';
 import Register from 'features/Auth/Component/Register';
+import { logout } from 'features/Counter/userSlide';
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const useStyles = makeStyles({
     root: {
@@ -32,16 +34,22 @@ const useStyles = makeStyles({
 const MODE = {
     LOGIN: 'login',
     REGISTER: 'register',
-}
+};
+
+
 export default function Headers() {
     const loggedInUser = useSelector(state => state.user.current);
+    const dispatch = useDispatch();
     const isLoggedIn = !!loggedInUser.id;
 
     const [open, setOpen] = React.useState(false);
     const [mode, setMode] = React.useState(MODE.LOGIN);
 
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openMenu = Boolean(anchorEl);
+
+
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -59,13 +67,17 @@ export default function Headers() {
         setAnchorEl(null);
     };
 
+    const handleLogOutClick = () => {
+        const action = logout();
+        dispatch(action);
+    }
 
     const classes = useStyles();
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
+                    <StoreIcon
                         size="large"
                         edge="start"
                         color="inherit"
@@ -73,7 +85,7 @@ export default function Headers() {
                         sx={{ mr: 2 }}
                     >
                         <MenuIcon />
-                    </IconButton>
+                    </StoreIcon>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         <Link className={classes.link} to="/">LightShop</Link>
                     </Typography>
@@ -105,7 +117,7 @@ export default function Headers() {
                 }}
             >
                 <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
-                <MenuItem onClick={handleCloseMenu}>Logout</MenuItem>
+                <MenuItem onClick={handleLogOutClick}>Logout</MenuItem>
             </Menu>
 
             <Dialog open={open} onClose={handleClose} >
@@ -134,6 +146,6 @@ export default function Headers() {
             </Dialog>
 
 
-        </Box>
+        </Box >
     );
 }

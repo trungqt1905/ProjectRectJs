@@ -36,7 +36,11 @@ const userSlide = createSlice({
         current: JSON.parse(localStorage.getItem(StorageKey.USER)) || {},
     },
     reducers: {
-        
+        logout(state) {
+            localStorage.removeItem(StorageKey.USER);
+            localStorage.removeItem(StorageKey.TOKEN);
+            state.current = {};
+        }
     },
     extraReducers: {
         [register.fulfilled]: (state, action) => {
@@ -48,5 +52,6 @@ const userSlide = createSlice({
     }
 });
 
-const { reducer } = userSlide
+const { actions, reducer } = userSlide
+export const { logout } = actions;
 export default reducer; //Default export

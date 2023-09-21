@@ -11,11 +11,10 @@ function Register(props) {
     const handleSubmit = async (values) => {
         try {
             values.username = values.email;
-
             const action = register(values);
+
             const resultAction = await dispatch(action);
             const user = unwrapResult(resultAction);
-
             console.log('New user', user)
         } catch (error) {
             console.log('Failed to register', error)

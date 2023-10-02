@@ -2,7 +2,7 @@ import { Close } from '@mui/icons-material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import StoreIcon from '@mui/icons-material/Store';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Dialog, DialogContent, Menu, MenuItem } from '@mui/material';
+import { Container, Dialog, DialogContent, Menu, MenuItem } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -76,36 +76,38 @@ export default function Headers() {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
-                <Toolbar>
-                    <StoreIcon
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </StoreIcon>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        <Link className={classes.link} to="/">LightShop</Link>
-                    </Typography>
-                    <NavLink to="/todos" className={classes.link}>
-                        <Button color="inherit">Todos</Button>
-                    </NavLink>
-                    <NavLink to="/albums" className={classes.link}>
-                        <Button color="inherit">Albums</Button>
-                    </NavLink>
+                <Container>
+                    <Toolbar>
+                        <StoreIcon
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2 }}
+                        >
+                            <MenuIcon />
+                        </StoreIcon>
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                            <Link className={classes.link} to="/">LightShop</Link>
+                        </Typography>
+                        <NavLink to="/todos" className={classes.link}>
+                            <Button color="inherit">Todos</Button>
+                        </NavLink>
+                        <NavLink to="/albums" className={classes.link}>
+                            <Button color="inherit">Albums</Button>
+                        </NavLink>
 
-                    {!isLoggedIn && (
-                        <Button color="inherit" onClick={handleClickOpen}>Login</Button>
-                    )}
+                        {!isLoggedIn && (
+                            <Button color="inherit" onClick={handleClickOpen}>Login</Button>
+                        )}
 
-                    {isLoggedIn && (
-                        <IconButton color='inherit' onClick={handleUserClick}>
-                            <AccountCircleIcon />
-                        </IconButton>
-                    )}
-                </Toolbar>
+                        {isLoggedIn && (
+                            <IconButton color='inherit' onClick={handleUserClick}>
+                                <AccountCircleIcon />
+                            </IconButton>
+                        )}
+                    </Toolbar>
+                </Container>
             </AppBar>
 
             <Menu

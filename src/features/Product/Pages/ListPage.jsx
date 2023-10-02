@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ProductList from "../components/ProductList";
 import ProductSkeletonList from "../components/ProductSkeletonList";
 import ProductSort from "../components/ProductSort";
+import ProductFilter from "../components/ProductFilter";
 
 ListPage.propTypes = {
 
@@ -61,6 +62,13 @@ function ListPage(props) {
         }));
     };
 
+    const handleFilterChange = (newFilters) => {
+        setFilter((prevFilter) => ({
+            ...prevFilter,
+            ...newFilters,
+        }));
+    };
+
     useEffect(() => {
         (async () => {
             try {
@@ -80,7 +88,9 @@ function ListPage(props) {
             <Container>
                 <Grid container spacing={1}>
                     <Grid item className={classes.left}>
-                        <Paper elevation={0} >Left column</Paper>
+                        <Paper elevation={0} >
+                            <ProductFilter filters={filters} onChange={handleFilterChange} />
+                        </Paper>
                     </Grid>
 
                     <Grid item className={classes.right}>
